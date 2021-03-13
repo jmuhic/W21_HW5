@@ -155,9 +155,9 @@ class TestCard(unittest.TestCase):
         q6_end_count = len(q6.cards)
 
         # Testing that end count is one fewer than the inital
-        self.assertEqual(q6_init_count, (q6_end_count + 1))
+        self.assertEqual((q6_init_count - 1), q6_end_count)
 
-        return q6_init_count, (q6_end_count + 1)
+        return (q6_init_count - 1), q6_end_count
 
 
     def test_q7(self):
@@ -182,11 +182,42 @@ class TestCard(unittest.TestCase):
         deckEndCount = len(q7.cards)
 
         # Testing that that end count is one greater than the initial
-        self.assertEqual((deckInitialCount + 1), deckEndCount)
+        # Expected count value is '52'
+        self.assertEqual((deckInitialCount + 1), deckEndCount, 52)
 
-        return (deckInitialCount +  1), deckEndCount
+        return (deckInitialCount +  1), deckEndCount, 52
+
 
     def test_q8(self):
+        '''
+        1. fill in your test method for question 8:
+        Test that if you invoke the replace_card method with a card that is already in the deck, the deck size is not affected.(The function must silently ignore it if you try to add a card that’s already in the deck)
+
+
+        2. remove the pass command
+
+        3. uncomment the return command and
+        3b. change X, Y to the values from your assert statement
+        ### please note: normally unit test methods do not have return statements. But returning will allow for unit testing of your unit test, and allow you to check your answer with the autograder.  This is optional today.
+
+        '''
+        q8 = hw5_cards.Deck()
+        randomCard = hw5_cards.Card(0 , 13)
+        initDeckCount = len(q8.cards)
+
+        # Attempt to replace with card already in full Deck
+        q8.replace_card(randomCard)
+
+        finalDeckCount = len(q8.cards)
+
+        # Test that 'replace_card' method did not change deck size
+        # the card is already in the deck (full Deck)
+        self.assertEqual(initDeckCount, finalDeckCount)
+
+        return initDeckCount, finalDeckCount
+
+
+    def test_q8_alt(self):
         '''
         1. fill in your test method for question 8:
         Test that if you invoke the replace_card method with a card that is already in the deck, the deck size is not affected.(The function must silently ignore it if you try to add a card that’s already in the deck)
@@ -215,7 +246,6 @@ class TestCard(unittest.TestCase):
         self.assertEqual(newDeckCount, finalDeckCount)
 
         return newDeckCount, finalDeckCount
-
 
 
 if __name__=="__main__":
